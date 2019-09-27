@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Remember Me</string>
+    <string name="enter_name">ادخل اسمك</string>
+    <string name="language">اللغة</string>
+    <string name="arabic">العربية</string>
+    <string name="english">English</string>
+    <string name="ok">تم</string>
+    <string name="welcome_text">سوف أذكرك أن تبقى على اتصال بالأشخاص المهمين في حياتك/n لا تدع مشاغل الحياة تنسيك أحبائك!</string>
+    <string name="start">ابدأ</string>
+    <string name="personal">البيانات الشخصية</string>
+    <string name="name">الاسم</string>
+    <string name="about">معلومات النظام</string>
+    <string name="version">رقم الإصدار</string>
+    <string name="version_no">1.00</string>
+    <string name="developer">المطور</string>
+    <string name="developer_mail">mohamed.wessam7@gmail.com</string>
+    <string name="settings">الإعدادات</string>
+    <string name="mobile">رقم الموبايل</string>
+    <string name="or">أو</string>
+    <string name="chose_from_contacts"><u>اختر من جهات الاتصال</u></string>
+    <string name="relationship">العلاقة</string>
+    <string name="remind_me">ذكرني بالإتصال كل</string>
+    <string name="remind_me_bd">ذكرني بالإتصال في عيد الميلاد</string>
+    <string name="add">إضافة</string>
+    <string name="cancel">تراجع</string>
+    <string name="add_person">إضافة شخص</string>
+    <string name="name_required">Name is required</string>
+    <string name="phone_required">Phone is required</string>
+    <string name="delete_message">Are you sure you want to delete</string>
+    <string name="delete_title">Warning!</string>
+    <string name="update">Update</string>
+
+    <string-array name="relationship_array">
+        <item>أخرى</item>
+        <item>العائلة</item>
+        <item>الأصدقاء</item>
+        <item>كراش</item>
+    </string-array>
+
+    <string-array name="call_time_array">
+        <item>يوم</item>
+        <item>أسبوع</item>
+        <item>شهر</item>
+        <item>لا تذكرني</item>
+    </string-array>
+</resources>
