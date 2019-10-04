@@ -1,17 +1,9 @@
 package com.wessam.rememberme.ui.login
 
-import com.wessam.rememberme.utils.SharedPreferencesManager
+import android.widget.TextView
 
-class LoginPresenter(var loginView: LoginView, var sharedPreferencesManager: SharedPreferencesManager) : ILoginPresenter {
+interface LoginPresenter {
 
-    override fun saveUserData(name: String, language: String) {
-        sharedPreferencesManager.setUserName(name)
-        sharedPreferencesManager.setAppLanguage(language)
-        sharedPreferencesManager.setLoginStatus(true)
-        sharedPreferencesManager.setIsFirstLogin(true)
-    }
+    fun onOkButtonClicked(textView: TextView, name: String, language: String)
 
-    override fun displayError() {
-
-    }
 }

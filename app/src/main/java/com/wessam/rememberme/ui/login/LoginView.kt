@@ -2,6 +2,8 @@ package com.wessam.rememberme.ui.login
 
 interface LoginView {
 
-    fun openHomeActivity()
+    fun openMainActivity()
+
+    fun showRequiredFieldError()
 
 }

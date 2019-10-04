@@ -1,20 +1,17 @@
-package com.wessam.rememberme.model
+package com.wessam.rememberme.ui.main
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.wessam.rememberme.R
-import com.wessam.rememberme.ui.main.MainActivity
-import kotlinx.android.synthetic.main.activity_add_person.*
+import com.wessam.rememberme.model.Person
 import kotlinx.android.synthetic.main.dialog_update_person.*
 import kotlinx.android.synthetic.main.dialog_update_person.view.*
-import kotlinx.android.synthetic.main.dialog_welcome_new_user.*
 import kotlinx.android.synthetic.main.recycler_main_activity.view.*
 
 class PersonAdapter(var context: Context, private val persons: ArrayList<Person>) :
@@ -80,7 +77,6 @@ class PersonAdapter(var context: Context, private val persons: ArrayList<Person>
                 alertBuilder.dismiss()
                 notifyDataSetChanged()
             }
-
 
         }
     }

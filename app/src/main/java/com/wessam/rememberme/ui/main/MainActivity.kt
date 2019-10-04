@@ -1,14 +1,15 @@
 package com.wessam.rememberme.ui.main
 
-import androidx.recyclerview.widget.DividerItemDecoration
+import android.view.LayoutInflater
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wessam.rememberme.R
 import com.wessam.rememberme.base.ParentActivity
-import com.wessam.rememberme.model.PersonAdapter
 import com.wessam.rememberme.model.SqliteHelper
 import com.wessam.rememberme.ui.addperson.AddPersonActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_welcome_new_user.*
 
 class MainActivity : ParentActivity(), MainActivityView {
 
@@ -16,18 +17,21 @@ class MainActivity : ParentActivity(), MainActivityView {
         lateinit var dbHandler: SqliteHelper
     }
 
+    private lateinit var mainPresenter: MainActivityPresenter
+
     override fun initializeComponents() {
 
         toolbarTitle = R.string.app_name
 
         dbHandler = SqliteHelper(this)
 
+        mainPresenter = MainActivityPresenterImpl(this, mSharedPreferences)
+
+        mainPresenter.onFirstLogin()
+
         viewPerson()
 
-        val iMainActivityPresenter = MainActivityPresenter(this, mSharedPreferences)
-        iMainActivityPresenter.showWelcomeDialog(this)
-
-        fsb_add_person.setOnClickListener { openAddPersonActivity() }
+        fab_add_person.setOnClickListener { openAddPersonActivity() }
     }
 
     private fun viewPerson() {
@@ -39,6 +43,16 @@ class MainActivity : ParentActivity(), MainActivityView {
         recyclerView.adapter = adapter
     }
 
+    override fun showWelcomeDialog() {
+            val welcomeDialog = LayoutInflater.from(this).inflate(R.layout.dialog_welcome_new_user, null)
+            val alertBuilder = AlertDialog.Builder(this).setView(welcomeDialog).show()
+            alertBuilder.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            alertBuilder.tv_user_name.append("${resources.getString(R.string.welcome)} ${mSharedPreferences.getUserName()} !")
+            alertBuilder.btn_dialog_start.setOnClickListener {
+                alertBuilder.dismiss()
+        }
+    }
+
     override fun getLayoutResource() = R.layout.activity_main
 
     override fun isFullScreen() = false
@@ -47,12 +61,9 @@ class MainActivity : ParentActivity(), MainActivityView {
 
     override fun isEnabledBack() = false
 
-    override fun isOrientationEnabled() = false
-
     override fun openAddPersonActivity() {
         startActivity(AddPersonActivity::class.java)
     }
-
 
     override fun onResume() {
         viewPerson()

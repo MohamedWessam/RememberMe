@@ -28,7 +28,7 @@ class SharedPreferencesManager(context: Context) {
     fun getAppLanguage() = sharedPreferences.getString(SharedPrefKey.App_LANGUAGE, Locale.getDefault().language) ?: "ar"
 
     fun setUserName(name: String){
-        editor.putString(SharedPrefKey.USER_NAME, name).apply()
+        editor.putString(SharedPrefKey.USER_NAME, name).commit()
     }
 
     fun getUserName() = sharedPreferences.getString(SharedPrefKey.USER_NAME, null)

@@ -6,7 +6,9 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.wessam.rememberme.utils.SharedPreferencesManager
 import kotlinx.android.synthetic.main.app_bar.*
 
@@ -26,6 +28,8 @@ abstract class ParentActivity : AppCompatActivity() {
         mContext = this
         mActivity = this
 
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         if (isFullScreen()) {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -37,8 +41,7 @@ abstract class ParentActivity : AppCompatActivity() {
 
         initializeComponents()
 
-        requestedOrientation = if (isOrientationEnabled()) ActivityInfo.SCREEN_ORIENTATION_SENSOR
-        else ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
 
         if (isEnabledToolbar()) configureToolbar()
 
@@ -57,6 +60,10 @@ abstract class ParentActivity : AppCompatActivity() {
 
     protected fun startActivity(cls: Class<*>){
         startActivity(Intent(mContext, cls))
+    }
+
+    protected fun longToast(msg: String){
+        Toast.makeText(mContext, msg, Toast.LENGTH_LONG).show()
     }
 
     /**
@@ -86,12 +93,5 @@ abstract class ParentActivity : AppCompatActivity() {
      * return true if toolbar back button is enabled
      */
     protected abstract fun isEnabledBack(): Boolean
-
-
-    /**
-     * return true if orientation is enabled
-     * if false activity orientation will be portrait only
-     */
-    protected abstract fun isOrientationEnabled(): Boolean
 
 }

@@ -7,7 +7,10 @@ import android.widget.Toast
 import android.database.sqlite.SQLiteOpenHelper as SQLiteOpenHelper1
 
 class SqliteHelper(context: Context) :
-    SQLiteOpenHelper1(context, DATABASE_NAME, null, DATABASE_VERSION) {
+    SQLiteOpenHelper1(context,
+        DATABASE_NAME, null,
+        DATABASE_VERSION
+    ) {
 
     companion object {
         private val DATABASE_VERSION = 1
@@ -28,7 +31,7 @@ class SqliteHelper(context: Context) :
                         "$COLOMN_NAME TEXT," +
                         "$COLOMN_PHONE TEXT," +
                         "$COLOMN_RELATIONSHIP_ID INTEGER," +
-                        "$COLOMN_PERIOD_ID TEXT)"
+                        "$COLOMN_PERIOD_ID INTEGER)"
                 )
         db?.execSQL(CREATE_PERSON_TABLE)
     }
@@ -99,6 +102,5 @@ class SqliteHelper(context: Context) :
 
         db.delete(TABLE_NAME, "$COLOMN_ID=?", arrayOf(person.personId.toString()))
     }
-
 
 }

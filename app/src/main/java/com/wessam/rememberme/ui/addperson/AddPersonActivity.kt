@@ -3,9 +3,9 @@ package com.wessam.rememberme.ui.addperson
 import com.thekhaeng.pushdownanim.PushDownAnim
 import com.wessam.rememberme.R
 import com.wessam.rememberme.base.ParentActivity
+import com.wessam.rememberme.model.Person
 import kotlinx.android.synthetic.main.activity_add_person.*
 
-import com.wessam.rememberme.model.*
 import com.wessam.rememberme.ui.main.MainActivity
 
 class AddPersonActivity : ParentActivity(), AddPersonView {
@@ -43,9 +43,6 @@ class AddPersonActivity : ParentActivity(), AddPersonView {
 
     }
 
-
-
-
     override fun getLayoutResource() = R.layout.activity_add_person
 
     override fun isFullScreen() = false
@@ -53,8 +50,6 @@ class AddPersonActivity : ParentActivity(), AddPersonView {
     override fun isEnabledToolbar() = true
 
     override fun isEnabledBack() = true
-
-    override fun isOrientationEnabled() = false
 
     override fun backToMain() {
         this.finish()

@@ -29,6 +29,10 @@
     <string name="delete_message">Are you sure you want to delete</string>
     <string name="delete_title">Warning!</string>
     <string name="update">Update</string>
+    <string name="enter_name_first">Please enter your name first</string>
+    <string name="mail_copied">Email copied to clipboard</string>
+    <string name="choose_language_first">Choose language first</string>
+    <string name="welcome">Welcom</string>
 
     <string-array name="relationship_array">
         <item>Other</item>

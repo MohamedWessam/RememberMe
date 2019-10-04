@@ -1,6 +1,6 @@
 package com.wessam.rememberme.model
 
-class Person(
+data class Person(
     var personId: Int? = 0,
     var personName: String? = null,
     var personPhone: String? = null,

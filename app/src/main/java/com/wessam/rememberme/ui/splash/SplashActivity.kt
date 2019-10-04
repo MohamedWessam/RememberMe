@@ -1,18 +1,17 @@
 package com.wessam.rememberme.ui.splash
 
-import android.content.Intent
 import com.wessam.rememberme.R
 import com.wessam.rememberme.base.ParentActivity
-import com.wessam.rememberme.ui.login.FirstLoginActivity
+import com.wessam.rememberme.ui.login.LoginActivity
 import com.wessam.rememberme.ui.main.MainActivity
-import com.wessam.rememberme.utils.SharedPreferencesManager
 import android.os.Handler
+import com.wessam.rememberme.ui.settings.SettingsActivity
 
 class SplashActivity : ParentActivity(), SplashView {
 
     override fun initializeComponents() {
 
-        val splashPresenter: ISplashPresenter = SplashPresenter(this, mSharedPreferences)
+        val splashPresenter: SplashPresenter = SplashPresenterImpl(this, mSharedPreferences)
 
         Handler().postDelayed({
             splashPresenter.decideNextActivity()
@@ -28,15 +27,13 @@ class SplashActivity : ParentActivity(), SplashView {
 
     override fun isEnabledBack() = false
 
-    override fun isOrientationEnabled() = false
-
     override fun openMainActivity() {
         startActivity(MainActivity::class.java)
         finish()
     }
 
     override fun openLoginActivity() {
-        startActivity(FirstLoginActivity::class.java)
+        startActivity(LoginActivity::class.java)
         finish()
     }
 }
