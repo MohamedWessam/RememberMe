@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wessam.rememberme">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,6 +22,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".ui.main.ResultActivity" />
+
+        <receiver
+            android:name=".receiver.AlarmReceiver"
+            android:enabled="true" />
+
+        <service
+            android:name=".receiver.NotificationService"
+            android:enabled="true" />
+
     </application>
 
 </manifest>

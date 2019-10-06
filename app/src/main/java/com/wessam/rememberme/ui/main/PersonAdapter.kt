@@ -42,7 +42,7 @@ class PersonAdapter(var context: Context, private val persons: ArrayList<Person>
                 .setTitle(context.resources.getString(R.string.delete_title))
                 .setIcon(R.drawable.ic_warning)
                 .setPositiveButton(context.resources.getString(R.string.ok)) { _, _ ->
-                    MainActivity.dbHandler.deletePerson(person)
+                    MainActivityInteractorImpl.dbHandler.deletePerson(person)
                     persons.removeAt(position)
                     notifyItemRemoved(position)
                     notifyItemRangeChanged(position, persons.size)
@@ -64,16 +64,16 @@ class PersonAdapter(var context: Context, private val persons: ArrayList<Person>
             etName.text = person.personName
             etMobile.text = person.personPhone
             sRelationship.setSelection(person.relationShipId!!)
-            sTime.setSelection(person.callPeriodId!!)
+            sTime.setSelection(person.callPeriod!!)
 
             val alertBuilder = AlertDialog.Builder(context).setView(updateDialog).show()
             alertBuilder.btn_cancel_update.setOnClickListener { alertBuilder.dismiss() }
             alertBuilder.btn_update.setOnClickListener {
-                MainActivity.dbHandler.updatePerson(person)
+                MainActivityInteractorImpl.dbHandler.updatePerson(person)
                 persons[position].personName = updateDialog.et_update_name.text.toString()
                 persons[position].personPhone = updateDialog.et_update_mobile.text.toString()
                 persons[position].relationShipId = updateDialog.spinner_update_relationship.selectedItemId.toInt()
-                persons[position].callPeriodId = updateDialog.spinner_update_time.selectedItemId.toInt()
+                persons[position].callPeriod = updateDialog.spinner_update_time.selectedItemId.toInt()
                 alertBuilder.dismiss()
                 notifyDataSetChanged()
             }

@@ -1,18 +1,27 @@
 package com.wessam.rememberme.ui.main
 
+import com.wessam.rememberme.model.Person
 import com.wessam.rememberme.utils.SharedPreferencesManager
 
-class MainActivityPresenterImpl(var mainActivityView: MainActivityView, var sharedPreferencesManager: SharedPreferencesManager) : MainActivityPresenter {
+class MainActivityPresenterImpl(
+    var view: MainActivityView,
+    var sharedPreferences: SharedPreferencesManager,
+    private val interactor: MainActivityInteractor
+) : MainActivityPresenter {
 
-    override fun onFirstLogin() {
-        if (sharedPreferencesManager.getIsFirstLogin()){
-            mainActivityView.showWelcomeDialog()
-            sharedPreferencesManager.setIsFirstLogin(false)
+    override fun checkFirstLogin() {
+        if (sharedPreferences.getIsFirstLogin()) {
+            view.showWelcomeDialog()
+            sharedPreferences.setIsFirstLogin(false)
         }
     }
 
     override fun getUserName(): String {
-        return sharedPreferencesManager.getUserName()!!
+        return sharedPreferences.getUserName()!!
+    }
+
+    override fun getPerson(): ArrayList<Person> {
+        return interactor.getPerson()
     }
 
 }

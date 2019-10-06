@@ -5,7 +5,6 @@ import com.thekhaeng.pushdownanim.PushDownAnim
 import com.wessam.rememberme.R
 import com.wessam.rememberme.base.ParentActivity
 import com.wessam.rememberme.ui.main.MainActivity
-import com.wessam.rememberme.ui.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_first_login.*
 
 class LoginActivity : ParentActivity(), LoginView {
@@ -29,7 +28,7 @@ class LoginActivity : ParentActivity(), LoginView {
 
         btn_ok.setOnClickListener {
             val name = et_user_name.text.toString()
-            loginPresenter.onOkButtonClicked(et_user_name, name, defaultLanguage)
+            loginPresenter.createUser(name, defaultLanguage)
         }
     }
 

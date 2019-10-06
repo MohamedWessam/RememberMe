@@ -58,7 +58,7 @@ class SqliteHelper(context: Context) :
                 person.personName = cursor.getString(cursor.getColumnIndex(COLOMN_NAME))
                 person.personPhone = cursor.getString(cursor.getColumnIndex(COLOMN_PHONE))
                 person.relationShipId = cursor.getInt(cursor.getColumnIndex(COLOMN_RELATIONSHIP_ID))
-                person.callPeriodId = cursor.getInt(cursor.getColumnIndex(COLOMN_PERIOD_ID))
+                person.callPeriod = cursor.getInt(cursor.getColumnIndex(COLOMN_PERIOD_ID))
                 personList.add(person)
                 cursor.moveToNext()
             }
@@ -74,7 +74,7 @@ class SqliteHelper(context: Context) :
         values.put(COLOMN_NAME, person.personName)
         values.put(COLOMN_PHONE, person.personPhone)
         values.put(COLOMN_RELATIONSHIP_ID, person.relationShipId)
-        values.put(COLOMN_PERIOD_ID, person.callPeriodId)
+        values.put(COLOMN_PERIOD_ID, person.callPeriod)
 
         val db = this.writableDatabase
         try{
@@ -92,7 +92,7 @@ class SqliteHelper(context: Context) :
         values.put(COLOMN_NAME, person.personName)
         values.put(COLOMN_PHONE, person.personPhone)
         values.put(COLOMN_RELATIONSHIP_ID, person.relationShipId)
-        values.put(COLOMN_PERIOD_ID, person.callPeriodId)
+        values.put(COLOMN_PERIOD_ID, person.callPeriod)
 
         return db.update(TABLE_NAME, values, "$COLOMN_ID=?", arrayOf(person.personId.toString()))
     }

@@ -33,6 +33,10 @@
     <string name="mail_copied">Email copied to clipboard</string>
     <string name="choose_language_first">Choose language first</string>
     <string name="welcome">Welcom</string>
+    <string name="notification_title">Call</string>
+    <string name="notification_txt1">Don\'t let life\'s concerns steal you from important people in your life.\nRemember to call</string>
+    <string name="notification_txt2">today</string>
+    <string name="change_language">Change language</string>
 
     <string-array name="relationship_array">
         <item>Other</item>

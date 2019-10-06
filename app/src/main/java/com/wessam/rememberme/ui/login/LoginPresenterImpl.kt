@@ -1,25 +1,21 @@
 package com.wessam.rememberme.ui.login
 
-import android.widget.TextView
 import com.wessam.rememberme.utils.SharedPreferencesManager
 
-class LoginPresenterImpl(
-    private var loginView: LoginView,
-    private val sharedPreferencesManager: SharedPreferencesManager) : LoginPresenter {
+class LoginPresenterImpl(private var view: LoginView, private val sharedPreferences: SharedPreferencesManager) : LoginPresenter {
 
-    override fun onOkButtonClicked(textView: TextView, name: String, language: String) {
-        if (isTextViewEmpty(textView)) {
-            loginView.showRequiredFieldError()
-            sharedPreferencesManager.setIsFirstLogin(true)
+    override fun createUser(name: String, language: String) {
+        if (name.isBlank()) {
+            view.showRequiredFieldError()
         }
         else {
             saveUserData(name, language)
-            loginView.openMainActivity()
+            view.openMainActivity()
         }
     }
 
     private fun saveUserData(name: String, language: String) {
-        with(sharedPreferencesManager) {
+        with(sharedPreferences) {
             setUserName(name)
             setAppLanguage(language)
             setLoginStatus(true)
@@ -27,7 +23,4 @@ class LoginPresenterImpl(
         }
     }
 
-    private fun isTextViewEmpty(textView: TextView): Boolean {
-        return (textView.text.trim().toString().isEmpty())
-    }
 }

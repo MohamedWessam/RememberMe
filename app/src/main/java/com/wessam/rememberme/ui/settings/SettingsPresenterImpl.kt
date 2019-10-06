@@ -8,37 +8,37 @@ import androidx.appcompat.app.AlertDialog
 import com.wessam.rememberme.R
 import com.wessam.rememberme.utils.SharedPreferencesManager
 
-class SettingsPresenterImpl(private var settingsView: SettingsView, private val sharedPreferencesManager: SharedPreferencesManager) : SettingsPresenter {
+class SettingsPresenterImpl(private var view: SettingsView, private val sharedPreferences: SharedPreferencesManager) : SettingsPresenter {
 
     override fun onEditNameClicked() {
-        settingsView.showEditNameDialog()
+        view.showEditNameDialog()
     }
 
     override fun setNewName(alertDialog: AlertDialog, editText: EditText, context: Context) {
         if (editText.text.toString().trim().isEmpty())
             editText.error = context.resources.getString(R.string.name_required)
              else {
-            sharedPreferencesManager.setUserName(editText.text.toString())
+            sharedPreferences.setUserName(editText.text.toString())
             alertDialog.dismiss()
         }
     }
 
     override fun onEditLanguageClicked() {
-        settingsView.showEditLanguageDialog()
+        view.showEditLanguageDialog()
     }
 
 
     override fun editLanguage(language: String?, msg: String) {
         language?.let {
-            sharedPreferencesManager.setAppLanguage(it)
-            settingsView.restartApp()
+            sharedPreferences.setAppLanguage(it)
+            view.restartApp()
         }
 
     }
 
     override fun editName(name: String?, msg: String) {
-        name?.let { sharedPreferencesManager.setUserName(it) }
-        settingsView.showMessage(msg)
+        name?.let { sharedPreferences.setUserName(it) }
+        view.showMessage(msg)
 
     }
 
@@ -47,7 +47,7 @@ class SettingsPresenterImpl(private var settingsView: SettingsView, private val 
         val clip: ClipData = ClipData.newPlainText("mail", context.resources.getString(R.string.developer_mail))
         clipboard.primaryClip = clip
 
-        settingsView.showMessage(msg)
+        view.showMessage(msg)
     }
 
 }
