@@ -6,51 +6,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wessam.rememberme.R
 import com.wessam.rememberme.base.ParentActivity
-import com.wessam.rememberme.model.Person
 import com.wessam.rememberme.ui.addperson.AddPersonActivity
-import com.wessam.rememberme.utils.NotificationUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_welcome_new_user.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : ParentActivity(), MainActivityView {
 
     private lateinit var presenter: MainActivityPresenter
 
-    private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
-    private var mNotified = false
-
     override fun initializeComponents() {
         toolbarTitle = R.string.app_name
 
-        presenter = MainActivityPresenterImpl(this, mSharedPreferences, MainActivityInteractorImpl(this))
+        presenter =
+            MainActivityPresenterImpl(this, mSharedPreferences, MainActivityInteractorImpl(this))
 
         presenter.checkFirstLogin()
 
         viewPerson()
 
         fab_add_person.setOnClickListener { openAddPersonActivity() }
-
-
-        var person = ArrayList<Person>()
-
-
-
-        for (i in 0..person.size){
-
-//            person[i].callPeriod!!.toLong()
-
-            if (!mNotified) {
-                NotificationUtils().setNotification(5000, this@MainActivity)
-            }
-        }
-
-
-
-
-
-
 
     }
 
@@ -67,17 +42,21 @@ class MainActivity : ParentActivity(), MainActivityView {
 
     override fun isEnabledBack() = false
 
+    override fun isSettingsMenuEnabled() = true
+
     override fun openAddPersonActivity() {
         startActivity(AddPersonActivity::class.java)
     }
 
     override fun showWelcomeDialog() {
-            val welcomeDialog = LayoutInflater.from(this).inflate(R.layout.dialog_welcome_new_user, null)
-            val alertBuilder = AlertDialog.Builder(this).setView(welcomeDialog).show()
-            alertBuilder.window?.setBackgroundDrawableResource(android.R.color.transparent)
-            alertBuilder.tv_user_name.append("${resources.getString(R.string.welcome)} ${mSharedPreferences.getUserName()} !")
-            alertBuilder.btn_dialog_start.setOnClickListener {
-                alertBuilder.dismiss()
+        val welcomeDialog =
+            LayoutInflater.from(this).inflate(R.layout.dialog_welcome_new_user, null)
+        val alertBuilder = AlertDialog.Builder(this).setView(welcomeDialog).show()
+        alertBuilder.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        alertBuilder.tv_user_name.text =
+            "${resources.getString(R.string.welcome)} ${mSharedPreferences.getUserName()} !"
+        alertBuilder.btn_dialog_start.setOnClickListener {
+            alertBuilder.dismiss()
         }
     }
 

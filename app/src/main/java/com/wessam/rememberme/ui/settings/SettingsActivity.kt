@@ -56,6 +56,8 @@ class SettingsActivity : ParentActivity(), SettingsView {
 
     override fun isEnabledBack() = true
 
+    override fun isSettingsMenuEnabled() = false
+
     override fun showEditNameDialog() {
         val nameDialog = LayoutInflater.from(this).inflate(R.layout.dialog_user_name, null)
         val alertBuilder = AlertDialog.Builder(this).setView(nameDialog).show()
@@ -101,84 +103,8 @@ class SettingsActivity : ParentActivity(), SettingsView {
         dialog.show()
     }
 
-
-
-
-
-
-
-    /*
-    override fun showEditLanguageDialog() {
-        val languageDialog = LayoutInflater.from(this).inflate(R.layout.dialog_language, null)
-        val alertBuilder = AlertDialog.Builder(this).setView(languageDialog).show()
-
-        alertBuilder.btn_language_dialog_cancel.setOnClickListener { alertBuilder.dismiss() }
-
-        alertBuilder.btn_language_dialog_ok.setOnClickListener {
-
-            var language = mSharedPreferences.getAppLanguage()
-
-            alertBuilder.rg_language_dialog.setOnCheckedChangeListener { _, checkedId ->
-                val radio: RadioButton = findViewById(checkedId)
-                language = when (radio) {
-                    rb_dialog_ar -> "ar"
-                    else -> "en"
-                }
-            }
-            settingsPresenter.editLanguage(language, "l")
-        }
-    }
-*/
-
-/*
-    override fun showEditLanguageDialog() {
-        val listItems = arrayOf("English", "العربية")
-        val builder = AlertDialog.Builder(this@SettingsActivity)
-        builder.setMessage(resources.getString(R.string.change_language))
-            .setIcon(R.drawable.ic_warning)
-            .setCancelable(true)
-
-        builder.setSingleChoiceItems(
-            listItems, -1
-        ) { dialogInterface, i ->
-            val language = if (i == 0) "en" else "ar"
-
-            settingsPresenter.editLanguage(language, "l")
-            recreate()
-            dialogInterface.dismiss()
-            startActivity(Intent(this@SettingsActivity, SplashActivity::class.java))
-        }
-        builder.setNegativeButton(resources.getString(R.string.cancel))
-        { dialog, _ ->
-            dialog.cancel()
-        }.create()
-            .show()
-*/
-
-/*
-        val titleText = resources.getString(R.string.language)
-        // Initialize a new foreground color span instance
-        val foregroundColorSpan = ForegroundColorSpan(Color.GRAY)
-        // Initialize a new spannable string builder instance
-        val ssBuilder = SpannableStringBuilder(titleText)
-        // Apply the text color span
-        ssBuilder.setSpan(
-            foregroundColorSpan, 0, titleText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        builder.setTitle(ssBuilder)
-        builder.setNegativeButton(resources.getString(R.string.cancel), null)
-
-        val dialog = builder.create()
-        dialog.show()
-    }
-
-*/
-
-
     override fun restartApp() {
-        startActivity(SplashActivity::class.java)
-        finish()
+        recreate()
     }
 
     override fun showMessage(msg: String) {

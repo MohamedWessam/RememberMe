@@ -40,6 +40,8 @@ class LoginActivity : ParentActivity(), LoginView {
 
     override fun isEnabledBack() = false
 
+    override fun isSettingsMenuEnabled() = false
+
     override fun openMainActivity() {
         startActivity(MainActivity::class.java)
         finish()

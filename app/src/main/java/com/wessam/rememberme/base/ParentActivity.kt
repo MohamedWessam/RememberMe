@@ -3,14 +3,22 @@ package com.wessam.rememberme.base
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.wessam.rememberme.R
+import com.wessam.rememberme.ui.settings.SettingsActivity
 import com.wessam.rememberme.utils.SharedPreferencesManager
 import kotlinx.android.synthetic.main.app_bar.*
+import java.util.*
 
 abstract class ParentActivity : AppCompatActivity() {
 
@@ -23,6 +31,7 @@ abstract class ParentActivity : AppCompatActivity() {
     protected var toolbarTitle: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         mContext = this
@@ -41,8 +50,6 @@ abstract class ParentActivity : AppCompatActivity() {
 
         initializeComponents()
 
-
-
         if (isEnabledToolbar()) configureToolbar()
 
     }
@@ -56,6 +63,23 @@ abstract class ParentActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(isEnabledBack())
 
         activities_tv_title.text = resources.getString(toolbarTitle!!)
+
+        if (isSettingsMenuEnabled()){
+            toolbar.inflateMenu(R.menu.menu)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        when(item!!.itemId){
+            R.id.menu_settings -> startActivity(SettingsActivity::class.java)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     protected fun startActivity(cls: Class<*>){
@@ -79,7 +103,7 @@ abstract class ParentActivity : AppCompatActivity() {
 
 
     /**
-     * return true if toolbar is enabled
+     * return true if full screen is enabled
      */
     protected abstract fun isFullScreen(): Boolean
 
@@ -93,5 +117,10 @@ abstract class ParentActivity : AppCompatActivity() {
      * return true if toolbar back button is enabled
      */
     protected abstract fun isEnabledBack(): Boolean
+
+    /**
+     * return true if setting button is enabled
+     */
+    protected abstract fun isSettingsMenuEnabled(): Boolean
 
 }

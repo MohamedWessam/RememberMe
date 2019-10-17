@@ -1832,6 +1832,7 @@ drawable ic_mtrl_chip_close_circle
 drawable ic_other
 drawable ic_person
 drawable ic_phone
+drawable ic_settings
 drawable ic_warning
 drawable logo
 drawable mtrl_snackbar_background

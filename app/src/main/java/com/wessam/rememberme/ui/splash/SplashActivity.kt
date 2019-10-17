@@ -1,6 +1,7 @@
 package com.wessam.rememberme.ui.splash
 
 import android.app.Activity
+import android.content.res.Configuration
 import com.wessam.rememberme.R
 import com.wessam.rememberme.base.ParentActivity
 import com.wessam.rememberme.ui.login.LoginActivity
@@ -19,7 +20,7 @@ class SplashActivity : ParentActivity(), SplashView {
 
         Handler().postDelayed({
             splashPresenter.decideNextActivity()
-        },4000)
+        }, 4000)
 
     }
 
@@ -55,6 +56,8 @@ class SplashActivity : ParentActivity(), SplashView {
     override fun isEnabledToolbar() = false
 
     override fun isEnabledBack() = false
+
+    override fun isSettingsMenuEnabled() = false
 
     override fun openMainActivity() {
         startActivity(MainActivity::class.java)

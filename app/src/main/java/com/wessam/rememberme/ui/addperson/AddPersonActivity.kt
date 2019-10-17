@@ -1,6 +1,8 @@
 package com.wessam.rememberme.ui.addperson
 
 import android.app.Activity
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract
@@ -8,7 +10,9 @@ import android.view.View
 import com.thekhaeng.pushdownanim.PushDownAnim
 import com.wessam.rememberme.R
 import com.wessam.rememberme.base.ParentActivity
+import com.wessam.rememberme.receiver.NotificationReceiver
 import kotlinx.android.synthetic.main.activity_add_person.*
+import java.util.*
 
 class AddPersonActivity : ParentActivity(), AddPersonView, View.OnClickListener {
 
@@ -37,7 +41,10 @@ class AddPersonActivity : ParentActivity(), AddPersonView, View.OnClickListener 
     }
 
     override fun openContacts() {
-        startActivityForResult(Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI), REQUEST_CODE_PICK_CONTACTS)
+        startActivityForResult(
+            Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI),
+            REQUEST_CODE_PICK_CONTACTS
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -71,8 +78,10 @@ class AddPersonActivity : ParentActivity(), AddPersonView, View.OnClickListener 
             personName = et_name.text.toString(),
             personPhone = et_mobile.text.trim().toString(),
             relationShipId = spinner_relationship.selectedItemId.toInt(),
-            callPeriod = presenter.convertCallPeriodId(spinner_time.selectedItemId.toInt())
+            callPeriod = spinner_time.selectedItemId.toInt()
         )
+
+        prepareAlarm()
     }
 
     override fun getLayoutResource() = R.layout.activity_add_person
@@ -82,5 +91,49 @@ class AddPersonActivity : ParentActivity(), AddPersonView, View.OnClickListener 
     override fun isEnabledToolbar() = true
 
     override fun isEnabledBack() = true
+
+    override fun isSettingsMenuEnabled() = true
+
+
+    fun callPeroid(): Long {
+        return when (spinner_time.selectedItemId.toInt()) {
+            1 -> 1 *(24*60*60*1000)
+            2 -> 7 *(24*60*60*1000)
+            3 -> 30 *(24*60*60*1000)
+            else -> 0
+        }
+    }
+
+    private fun prepareAlarm() {
+        var calendar = Calendar.getInstance()
+
+       // calendar.add(Calendar.DATE, 30)
+
+       // calendar.set(Calendar.HOUR_OF_DAY, 20)
+       calendar.set(Calendar.MINUTE, 1)
+
+        val intent = Intent(this, NotificationReceiver::class.java)
+        intent.action = "com.wessam.rememberme.ALARM"
+        intent.putExtra("NAME", et_name.text.toString())
+        intent.putExtra("PHONE", et_mobile.text.toString())
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            100,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            callPeroid(),
+            pendingIntent
+        )
+
+        sendBroadcast(intent)
+    }
+
 
 }
